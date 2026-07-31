@@ -53,3 +53,69 @@ VPC (10.0.0.0/16)
 ---
 
 More updates coming as the project progresses.
+
+## 📅 Day 4 – Internet Gateway
+
+### 🎯 Objective
+
+Connect the VPC to the public Internet by creating and attaching an Internet Gateway using Terraform.
+
+### 📚 Topics Learned
+
+- AWS Internet Gateway (IGW)
+- VPC Isolation
+- Resource References
+- Implicit Dependencies
+- Terraform Workflow (`fmt → validate → plan → apply`)
+- AWS Networking Fundamentals
+
+### 🛠️ Tasks Completed
+
+- Created an Internet Gateway using Terraform
+- Attached the Internet Gateway to the custom VPC
+- Used `aws_vpc.main.id` to reference the VPC
+- Applied infrastructure using Terraform
+- Verified the Internet Gateway in the AWS Console
+- Updated project documentation
+- Committed changes to Git
+
+### 💡 Key Learnings
+
+- An Internet Gateway is a highly available, AWS-managed component that enables communication between a VPC and the public Internet.
+- Attaching an Internet Gateway to a VPC does **not** automatically provide Internet access.
+- Internet access also requires:
+  - A Public Subnet
+  - A Route Table with `0.0.0.0/0` pointing to the Internet Gateway
+  - A Route Table Association
+  - A Public IP (or Elastic IP) for the EC2 instance
+- Resource references such as `aws_vpc.main.id` eliminate the need to hardcode resource IDs.
+- Terraform automatically creates an implicit dependency when one resource references another.
+
+### 📁 Files Updated
+
+- `terraform/main.tf`
+- `terraform/provider.tf`
+
+### ✅ Terraform Commands Executed
+
+```bash
+terraform fmt
+terraform validate
+terraform plan
+terraform apply
+```
+
+### 🌐 Infrastructure Status
+
+- ✅ Custom VPC
+- ✅ Internet Gateway
+- ⏳ Public Subnet (Next)
+- ⏳ Route Table
+- ⏳ Security Group
+- ⏳ EC2 Instance
+
+### 📝 Commit Message
+
+```
+Day 4: Add Internet Gateway
+```
