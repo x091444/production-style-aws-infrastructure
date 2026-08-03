@@ -119,3 +119,69 @@ terraform apply
 ```
 Day 4: Add Internet Gateway
 ```
+
+## 📅 Day 5 – Public Subnet
+
+### 🎯 Objective
+
+Create a Public Subnet inside the custom VPC to prepare the network for hosting internet-facing resources.
+
+### 📚 Topics Learned
+
+- AWS Subnets
+- CIDR Blocks
+- Public vs Private Subnets
+- Availability Zones (AZs)
+- Public IP Assignment
+- Resource References
+- CIDR Validation
+- Overlapping Subnet Rules
+
+### 🛠️ Tasks Completed
+
+- Created a Public Subnet using Terraform
+- Attached the subnet to the custom VPC
+- Configured the subnet with CIDR block `10.0.1.0/24`
+- Selected Availability Zone `ap-south-1a`
+- Enabled automatic Public IP assignment using `map_public_ip_on_launch`
+- Validated Terraform configuration
+- Generated and reviewed the execution plan
+- Applied the infrastructure successfully
+- Verified the subnet in the AWS Management Console
+
+### 💡 Key Learnings
+
+- A subnet is a logical subdivision of a VPC that divides a larger network into smaller IP ranges.
+- Every subnet must use a CIDR block that falls within the VPC's CIDR range.
+- AWS does not allow overlapping subnet CIDR ranges within the same VPC.
+- Enabling `map_public_ip_on_launch` automatically assigns a public IPv4 address to EC2 instances launched in the subnet.
+- A subnet is not truly "public" until a Route Table containing a default route (`0.0.0.0/0`) to an Internet Gateway is associated with it.
+
+### 📁 Files Updated
+
+- `terraform/main.tf`
+
+### ✅ Terraform Commands Executed
+
+```bash
+terraform fmt
+terraform validate
+terraform plan
+terraform apply
+```
+
+### 🌐 Infrastructure Status
+
+- ✅ Custom VPC
+- ✅ Internet Gateway
+- ✅ Public Subnet
+- ⏳ Route Table
+- ⏳ Route Table Association
+- ⏳ Security Group
+- ⏳ EC2 Instance
+
+### 📝 Commit Message
+
+```text
+Day 5: Add Public Subnet
+```
