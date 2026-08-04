@@ -185,3 +185,93 @@ terraform apply
 ```text
 Day 5: Add Public Subnet
 ```
+
+## 📅 Day 6 – Public Route Table & Route Table Association
+
+### 🎯 Objective
+
+Configure internet routing for the Public Subnet by creating a Public Route Table and associating it with the subnet.
+
+### 📚 Topics Learned
+
+- AWS Route Tables
+- Routes
+- Default Route (`0.0.0.0/0`)
+- Internet Gateway Routing
+- Route Table Association
+- Network Traffic Flow
+- Public Subnet Routing
+
+### 🛠️ Tasks Completed
+
+- Created a Public Route Table using Terraform
+- Added a default route (`0.0.0.0/0`) pointing to the Internet Gateway
+- Associated the Public Route Table with the Public Subnet
+- Validated the Terraform configuration
+- Reviewed the Terraform execution plan
+- Applied the infrastructure successfully
+- Verified the Route Table and Subnet Association in the AWS Management Console
+
+### 💡 Key Learnings
+
+- A Route Table is a collection of routes that determines where network traffic should be forwarded.
+- The Internet Gateway provides internet connectivity but does not route traffic by itself.
+- The default route (`0.0.0.0/0`) forwards all internet-bound traffic to the Internet Gateway.
+- A Route Table must be associated with a subnet before the subnet can use its routing rules.
+- A Public Subnet becomes truly public only after it is associated with a Route Table containing a default route to an Internet Gateway.
+
+### 📁 Files Updated
+
+- `terraform/main.tf`
+
+### ✅ Terraform Commands Executed
+
+```bash
+terraform fmt
+terraform validate
+terraform plan
+terraform apply
+```
+
+### 🌐 Infrastructure Status
+
+- ✅ Custom VPC
+- ✅ Internet Gateway
+- ✅ Public Subnet
+- ✅ Public Route Table
+- ✅ Route Table Association
+- ⏳ Security Group
+- ⏳ EC2 Instance
+- ⏳ Private Subnet
+- ⏳ NAT Gateway
+
+### 🏗️ Current Architecture
+
+```text
+                    Internet
+                        │
+                        ▼
+               Internet Gateway
+                        ▲
+                        │
+         Public Route Table
+      0.0.0.0/0 → Internet Gateway
+                        ▲
+                        │
+       Route Table Association
+                        ▲
+                        │
++--------------------------------------------------+
+| VPC (10.0.0.0/16)                                |
+|                                                  |
+|  Public Subnet (10.0.1.0/24)                     |
+|  Auto Public IP Enabled                          |
+|                                                  |
++--------------------------------------------------+
+```
+
+### 📝 Commit Message
+
+```text
+Day 6: Add Public Route Table and Route Table Association
+```
