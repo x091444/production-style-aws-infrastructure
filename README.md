@@ -275,3 +275,111 @@ terraform apply
 ```text
 Day 6: Add Public Route Table and Route Table Association
 ```
+
+## 📅 Day 7 – Security Group
+
+### 🎯 Objective
+
+Create a Security Group to control inbound and outbound traffic for future EC2 instances.
+
+### 📚 Topics Learned
+
+- Security Groups
+- Inbound rules
+- Outbound rules
+- SSH (Port 22)
+- HTTP (Port 80)
+- Security Groups vs Route Tables
+- Security Groups as virtual firewalls
+
+### 🛠️ Tasks Completed
+
+- Created a Security Group inside the custom VPC
+- Allowed SSH traffic on port 22
+- Allowed HTTP traffic on port 80
+- Allowed all outbound traffic
+- Validated the Terraform configuration
+- Reviewed the Terraform plan
+- Successfully created the Security Group
+- Verified the Security Group in the AWS Console
+
+### 💡 Key Learning
+
+A Security Group acts as a virtual firewall for AWS resources such as EC2 instances.
+
+A Route Table decides **where network traffic goes**, while a Security Group decides **whether the traffic is allowed**.
+
+```text
+Route Table
+    ↓
+Where should the traffic go?
+
+Security Group
+    ↓
+Should the traffic be allowed?
+```
+
+### 🔐 Security Group Rules
+
+| Direction | Protocol | Port | Source |
+|---|---|---:|---|
+| Inbound | TCP | 22 | 0.0.0.0/0 |
+| Inbound | TCP | 80 | 0.0.0.0/0 |
+| Outbound | All | All | 0.0.0.0/0 |
+
+> **Note:** SSH is currently open to `0.0.0.0/0` for learning purposes. In a production environment, SSH access should be restricted to trusted sources or replaced with a more secure access method.
+
+### 📁 Terraform Resource
+
+```hcl
+aws_security_group.public
+```
+
+### 🆔 AWS Resource
+
+```text
+Security Group ID:
+sg-0301eccd22e20edd4
+```
+
+### ✅ Terraform Commands
+
+```bash
+terraform fmt
+terraform validate
+terraform plan
+terraform apply
+```
+
+### 🏗️ Current Infrastructure
+
+```text
+                    Internet
+                        │
+                        ▼
+               Internet Gateway
+                        │
+                        ▼
+                Public Route Table
+                        │
+                        ▼
+                 Public Subnet
+                        │
+                        ▼
+                  Security Group
+                        │
+                        ▼
+                 Future EC2
+```
+
+### 📈 Project Progress
+
+- ✅ VPC
+- ✅ Internet Gateway
+- ✅ Public Subnet
+- ✅ Public Route Table
+- ✅ Route Table Association
+- ✅ Security Group
+- ⏳ EC2 Instance
+- ⏳ Private Subnet
+- ⏳ NAT Gateway
