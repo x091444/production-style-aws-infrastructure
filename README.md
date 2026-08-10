@@ -383,3 +383,96 @@ terraform apply
 - ⏳ EC2 Instance
 - ⏳ Private Subnet
 - ⏳ NAT Gateway
+
+# Day 8 — Launch EC2 Instance with Terraform
+
+## 🎯 Objective
+
+Create a public EC2 instance inside the VPC using Terraform and connect it to the existing AWS network infrastructure.
+
+## 🧠 What I Learned
+
+### AMI (Amazon Machine Image)
+
+An AMI is a template used to launch an EC2 instance. It contains the operating system and required configuration.
+
+For this project, I used an Ubuntu 24.04 AMI.
+
+### EC2 Instance
+
+Created an EC2 instance using Terraform with:
+
+- Instance type: `t3.micro`
+- OS: Ubuntu 24.04
+- Region: `ap-south-1`
+- Public IP enabled
+
+### Terraform Resource References
+✅ Correct:
+
+subnet_id = aws_subnet.public.id
+
+Terraform expressions should not be placed inside quotes when referencing another resource.
+
+Terraform Outputs
+
+Added outputs to display important EC2 information:
+
+output "ec2_instance_id" {
+  value = aws_instance.public.id
+}
+
+output "ec2_public_ip" {
+  value = aws_instance.public.public_ip
+}
+
+output "ec2_private_ip" {
+  value = aws_instance.public.private_ip
+}
+🏗️ Infrastructure Flow
+Internet
+   │
+   ▼
+Internet Gateway
+   │
+   ▼
+Route Table
+   │
+   ▼
+Public Subnet
+   │
+   ├── Security Group
+   │      ├── SSH : 22
+   │      └── HTTP : 80
+   │
+   ▼
+EC2 Instance
+   │
+   ├── Private IP: 10.0.1.33
+   └── Public IP: 13.234.136.45
+🛠️ Terraform Commands Used
+terraform fmt
+terraform validate
+terraform plan
+terraform apply
+terraform output
+terraform state list
+✅ Verification
+
+Terraform successfully created the EC2 instance:
+
+Instance ID: i-0d27621a29f1c1d78
+Private IP: 10.0.1.33
+Public IP: 13.234.136.45
+
+Terraform output:
+
+Apply complete! Resources: 0 added, 0 changed, 0 destroyed.
+📚 Key Takeaway
+
+The EC2 instance is not isolated. It is connected to the infrastructure we built in previous days:
+
+VPC → Subnet → Route Table → Internet Gateway + Security Group → EC2 
+
+
+

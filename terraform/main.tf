@@ -103,7 +103,7 @@ resource "aws_security_group" "public" {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
-    cidr_blocks  = ["0.0.0.0/0"]
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   tags = {
@@ -113,3 +113,23 @@ resource "aws_security_group" "public" {
   }
 
 }
+
+# Creating EC2 Instance Along with this VPC
+
+resource "aws_instance" "public" {
+
+  ami           = "ami-07e5ce642bbc48c0d"
+  instance_type = "t3.micro"
+
+  subnet_id                   = aws_subnet.public.id
+  vpc_security_group_ids      = [aws_security_group.public.id]
+  associate_public_ip_address = true
+
+  tags = {
+
+    Name = "${var.project_name}-public-ec2"
+
+  }
+
+}
+
