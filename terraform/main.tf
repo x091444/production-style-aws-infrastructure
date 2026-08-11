@@ -121,9 +121,8 @@ resource "aws_instance" "public" {
   ami           = "ami-07e5ce642bbc48c0d"
   instance_type = "t3.micro"
 
-  subnet_id                   = aws_subnet.public.id
-  vpc_security_group_ids      = [aws_security_group.public.id]
-  associate_public_ip_address = true
+  subnet_id              = aws_subnet.public.id
+  vpc_security_group_ids = [aws_security_group.public.id]
 
   tags = {
 
@@ -132,4 +131,22 @@ resource "aws_instance" "public" {
   }
 
 }
+
+# creating an elastic ip address for the ec2 instance
+
+resource "aws_eip" "public" {
+
+  domain = "vpc"
+
+  instance = aws_instance.public.id
+
+  tags = {
+
+    Name = "${var.project_name}-public-eip"
+
+  }
+
+}
+
+
 
