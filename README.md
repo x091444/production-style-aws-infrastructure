@@ -449,7 +449,7 @@ Public Subnet
 EC2 Instance
    │
    ├── Private IP: 10.0.1.33
-   └── Public IP: 13.234.136.45
+   └── Public IP: 13.207.174.252
 🛠️ Terraform Commands Used
 terraform fmt
 terraform validate
@@ -463,7 +463,7 @@ Terraform successfully created the EC2 instance:
 
 Instance ID: i-0d27621a29f1c1d78
 Private IP: 10.0.1.33
-Public IP: 13.234.136.45
+Public IP: 13.207.174.252
 
 Terraform output:
 
@@ -475,4 +475,26 @@ The EC2 instance is not isolated. It is connected to the infrastructure we built
 VPC → Subnet → Route Table → Internet Gateway + Security Group → EC2 
 
 
+## Day 9 – Elastic IP for Public EC2
 
+### What I learned
+
+Today I learned why an AWS Elastic IP is important when running a public EC2 instance that needs a stable public IP address.
+
+By default, an EC2 instance can receive an automatically assigned public IPv4 address. This public IP address is not permanent. When the instance is stopped and started again, the public IP can change.
+
+This becomes a problem when a domain name points to the EC2 instance.
+
+For example:
+
+```text
+Domain
+   |
+   v
+example.com
+   |
+   v
+13.234.136.45
+   |
+   v
+EC2 Instance
