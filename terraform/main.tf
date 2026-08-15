@@ -85,7 +85,7 @@ resource "aws_security_group" "public" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["15.206.205.6/32"]
+    cidr_blocks = ["103.74.138.68/32"]
   }
 
   ingress {
@@ -120,6 +120,8 @@ resource "aws_instance" "public" {
 
   ami           = "ami-07e5ce642bbc48c0d"
   instance_type = "t3.micro"
+
+  key_name = "usabinsonkey"
 
   subnet_id              = aws_subnet.public.id
   vpc_security_group_ids = [aws_security_group.public.id]
